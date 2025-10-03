@@ -1,0 +1,5 @@
+{
+  "name": "Tic-Tac-Toe",
+  "description": "A visually stunning, futuristic Tic-Tac-Toe game where you can challenge a powerful local AI. Features holographic-style graphics, dynamic animations, and an intelligent opponent for an immersive gameplay experience.",
+  "requestFramePermissions": []
+}
