@@ -75,7 +75,38 @@
   <script src="env.js"></script>
 </head>
   <body class="bg-slate-900 text-white">
+    <!-- Fallback message for users opening the file directly -->
+    <div id="fallback-message" style="display: none; padding: 2rem; text-align: center; font-family: sans-serif;">
+      <div style="max-width: 600px; margin: 40px auto; background-color: #1e293b; border-radius: 8px; border: 1px solid #334155; padding: 24px;">
+        <h1 style="font-size: 2rem; font-weight: bold; color: #e2e8f0; margin-bottom: 16px;">Game Failed to Load</h1>
+        <p style="font-size: 1.1rem; color: #94a3b8; margin-bottom: 24px;">
+          This happens when you open the <code>index.html</code> file directly from your computer. Modern web apps need to be served by a simple web server to work correctly.
+        </p>
+        <div style="background-color: #0f172a; padding: 16px; border-radius: 4px; text-align: left; font-family: monospace; color: #cbd5e1;">
+          <p style="margin-bottom: 8px;"><strong>Quick Fix:</strong></p>
+          <p>1. Open a terminal in this project's folder.</p>
+          <p>2. Run one of these commands:</p>
+          <p style="margin-top: 8px;"><code>npx serve</code> (if you have Node.js)</p>
+          <p><code>python -m http.server</code> (if you have Python)</p>
+          <p style="margin-top: 8px;">3. Open the provided <code>http://localhost...</code> address in your browser.</p>
+        </div>
+        <p style="font-size: 0.9rem; color: #64748b; margin-top: 24px;">
+          For more details, please see the <code>README.md</code> file.
+        </p>
+      </div>
+    </div>
+
     <div id="root"></div>
-    <script type="text/babel" data-type="module" src="/index.tsx"></script>
+
+    <script>
+      // This script runs before the main app script.
+      // If the page is opened as a local file, it shows a helpful message
+      // instead of a blank screen, as modern JS modules won't load.
+      if (window.location.protocol === 'file:') {
+        document.getElementById('root').style.display = 'none';
+        document.getElementById('fallback-message').style.display = 'block';
+      }
+    </script>
+    <script type="text/babel" data-type="module" src="./index.tsx"></script>
   </body>
 </html>

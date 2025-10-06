@@ -42,13 +42,20 @@ const App: React.FC = () => {
   const aiPlayer: Player = 'O';
 
   const handleNewGame = useCallback(() => {
+    if (gameMode === 'vsAI') {
+      if (!process.env.API_KEY || process.env.API_KEY.includes('YOUR_API_KEY')) {
+        alert('API Key not found. Please edit the `env.js` file and add your Gemini API key to play against the AI. Refer to README.md for instructions.');
+        return; // Prevent game from starting in AI mode without a key
+      }
+    }
+    
     setBoard(INITIAL_BOARD);
     const firstPlayer = 'X';
     setCurrentPlayer(firstPlayer);
     setWinningInfo(null);
     setIsGameActive(true);
     setStatus(`Player ${firstPlayer}'s turn`);
-  }, []);
+  }, [gameMode]);
 
   const handleAIMove = useCallback(async (currentBoard: BoardState) => {
     setStatus('AI is thinking...');
